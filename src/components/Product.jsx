@@ -7,16 +7,7 @@ const Product = () => {
     const [filter,setFilter] = useState(data);
     const [loading,setLoading] = useState(false);
 
-    const temp =[{
-        id:1,
-        "title":"Mens Grey Tshirt",
-        "price":200
-    },
-     {id:2,
-     "title":"Jwellary",
-     "price":500
-     }
-]
+ 
     let compoundMounted =true;
     useEffect(()=>{
       const getProducts = async ()=>{
@@ -42,18 +33,22 @@ const Product = () => {
             </>
         )
     }
+    const filterProduct=(cat)=>{
+        const updatedList = data.filter((x)=> x.category === cat)
+        setFilter(updatedList);
+    }
     const ShowProduct=()=>{
         return(
             <>
         <div className="buttons d-flex justify-content-center mb-5 pb-5">
-            <button className="btn btn-outline-dark me-2">All</button>
-            <button className="btn btn-outline-dark me-2">Mens Clothing</button>
-            <button className="btn btn-outline-dark me-2">Women's Clothing</button>
-            <button className="btn btn-outline-dark me-2">Jwellery</button>
-            <button className="btn btn-outline-dark me-2">Electronics</button>
+            <button className="btn btn-outline-dark me-2" onClick={()=>setFilter(data)}>All</button>
+            <button className="btn btn-outline-dark me-2" onClick={()=>filterProduct("men's clothing")}>Mens Clothing</button>
+            <button className="btn btn-outline-dark me-2" onClick={()=>filterProduct("women's clothing")}>Women's Clothing</button>
+            <button className="btn btn-outline-dark me-2" onClick={()=>filterProduct("jewelery")} >Jwellery</button>
+            <button className="btn btn-outline-dark me-2"  onClick={()=>filterProduct("electronics")}>Electronics</button>
             
         </div>
-        {temp.map((product)=>{
+        {filter.map((product)=>{
                 return(
                     <>
             <div className="col-md-3 mb-4">
